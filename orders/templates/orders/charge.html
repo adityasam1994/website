@@ -1,0 +1,17 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+ 
+{% block content %}
+
+<h2 class="text-center" style="font-family: Georgia, 'Times New Roman', Times, serif;
+margin-top: 50px;margin-bottom: 50px" >Your Payment was successful, Thank's for shopping from us</h2>
+
+<script>
+    function redirect(){
+       window.location.href = "{% url 'shop:product_list' %}";
+    }
+
+    setTimeout(redirect, 2000); //2000 is equivalent to 2 seconds
+</script>
+
+{% endblock %}

@@ -1,0 +1,131 @@
+{% extends 'shop/base.html' %}
+{% load mathfilters %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.name }} {% else %} Products {% endif %}
+{% endblock %}
+ 
+{% block content %}
+
+<div class="container-fluid login_background">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                        <h1 style="font-family: 'Times New Roman', Times, serif
+                        ;color: black;">Signin Now!</h1>
+                </div>
+            </div>
+            {% if messages %}
+                {% for mes in messages %}
+                {{mes}}
+                {% endfor %}
+                {% endif %}
+        </div>
+    
+    
+        <div class="container">
+            <div class="row"  style="margin-right: 0px;margin-top: 30px">
+                <div class="col-sm-7 sign_up_in border_right margin_bottom_login">
+                        <a href=""><button type="button" class="btn btn-outline-primary active"
+                         style="padding-left:30px;padding-right: 30px;color: white">Signin</button></a>
+    
+                        <a href="/signup/"><button type="button" class="btn btn-outline-primary"
+                         style="padding-left:30px;padding-right: 30px;margin-left: 30px
+                         ;color: black">Signup</button></a>
+
+                
+    
+                <div class="row log" style="margin-top: 30px">
+                    <div class="col-sm-11">
+                    <form id="login-form" method="POST" role="form" style="display: block">
+                        {% csrf_token %}
+                        <div class="form-group">
+                                <input type="text" name="username" id="username" tabindex="1" class="form-control" placeholder="Username" value="">
+                        </div>
+                        <div class="form-group">
+                                <input type="password" name="password" id="password" tabindex="2" class="form-control" placeholder="Password">
+                        </div>
+                        <div class=" text-center">
+                                <input type="checkbox" tabindex="3" name="remember" id="remember">
+                                <label for="remember" name="remember_me" style="font-size: 20px; font-family: 'Times New Roman', Times, serif
+                                ;color: black;margin-top: 20px"> Remember Me</label>
+                        </div>
+                        <div class="">
+                                <div class="row" style="margin-top: 20px">
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <input type="submit" name="login-submit" id="login-submit" tabindex="4"
+                                         class="form-control btn btn-login loghover" value="Log In">
+                                    </div>
+                                </div>
+                            </div>
+    
+                            <div>
+                                    <div class="row" style="margin-top: 20px">
+                                        <div class="col-lg-12">
+                                            <div class="text-center">
+                                                <a href="/password_reset/" tabindex="5" class="forgot-password" style="color: yellow
+                                                ;font-size: 20px;font-family: 'Times New Roman', Times, serif">Forgot Password?</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                    </form>
+    
+                    
+                    </div>
+                    <div class="col-sm-1 col-xs-1"></div>
+                </div>
+    
+                </div>
+    
+    
+                <div class="col-sm-5 col-xs-12">
+                   <div class="row"><h2 class="text-right signin_with">Signin with!</h2></div>
+                   <div class="row social_icon_row">
+                       <div class="col-sm-1 col-xs-0"></div>
+                       <div class="col-sm-2 col-xs-2" style="margin-right: 20px">
+                            <a href="{% url 'social:begin' 'facebook' %}">
+                        <div class="container fbsquare log_icon_hover social_login_box">    
+                            <i class="fa fa-facebook-f fbrotate_to_normal social_login_ficon"></i>
+                            
+                        </div>
+                        </a>
+                        </div>
+                        <div class="col-sm-2 col-xs-2" style="margin-right: 20px">
+                                <a href="{% url 'social:begin' 'google-oauth2' %}">
+                                <div class="container gsquare log_icon_hover social_login_box">
+                                       
+                                        <i class="fa fa-google grotate_to_normal social_login_gicon"></i>
+                                </div>
+                                </a>
+                        </div>
+                        <div class="col-sm-2 col-xs-2" style="margin-right: 20px">
+                                <a href="{% url 'social:begin' 'twitter' %}">
+                                <div class="container tsquare log_icon_hover social_login_box">
+                                        
+                                        <i class="fa fa-twitter trotate_to_normal social_login_ticon"></i>
+                                    
+                                </div>
+                                </a>
+                        </div>
+
+                        <div class="col-sm-2 col-xs-2 col-md-2">
+                                <div class="container psquare log_icon_hover social_login_box">
+                                        <a href="{% url 'social:begin' 'github' %}">
+                                        <i class="fa fa-github protate_to_normal social_login_picon"></i>
+                                        </a>
+                                </div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    
+        
+    
+        </div>
+
+        
+{% endblock %}
+        

@@ -1,0 +1,13 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}
+    Your Shopping Cart| Checkout
+{% endblock %}
+ 
+{% block content %}
+
+    <h1>Pay using PayPal</h1>
+    
+        {{ form.render }}
+
+{% endblock %}

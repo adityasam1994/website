@@ -1,0 +1,26 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}
+    Your Shopping Cart| Checkout
+{% endblock %}
+ 
+{% block content %}
+
+<div class="container" style="margin-top: 50px;margin-bottom: 50px">
+
+    <!-- <h2 class="text-center" style="font-family: Georgia, 'Times New Roman', Times, serif">Pay With</h2> -->
+    <form action="{% url 'orders:charge' %}" method="post" align="center">
+      {% csrf_token %}
+      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+            data-key= {{ key }}
+            data-amount= {{ request.session.total }}
+            data-name="Quality Electrical and Electronics"
+            data-description="Example charge"
+            data-currency="GBP"
+            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+            data-locale="auto">
+    </script>
+    </form>
+</div>
+
+{% endblock %}

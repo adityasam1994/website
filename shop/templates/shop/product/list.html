@@ -1,0 +1,306 @@
+{% extends 'shop/base.html' %}
+{% load humanize %}
+{% load mathfilters %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.name }} {% else %} Products {% endif %}
+{% endblock %}
+ 
+{% block content %}
+
+
+
+    <!-- banner -->
+    <div class="container-fluid" style="margin-left:-15px;margin-right:-15px">
+        <div id="carouselExampleSlidesOnly" class="carousel slide" data-ride="carousel" data-interval="3000">
+            
+            <ol class="carousel-indicators c_indicator">
+                {% for banf in banner_front %}
+                <li data-target="#carouselExampleSlidesOnly" data-slide-to="0" class="active"></li>
+                {% endfor %}
+                {% for bano in banner_other %}
+                <li data-target="#carouselExampleSlidesOnly" data-slide-to="1"></li>
+                {% endfor %}
+                
+              </ol>
+
+            <div class="carousel-inner img-responsive">
+                {% for banf in banner_front %}
+                    <div class="item active">
+                        <img src="{{ banf.image.url }}" alt="" class="img-responsive" style="width: 100%;height:30vw;object-fit: cover">
+                    </div>
+                {% endfor %}
+
+                {% for bano in banner_other %}
+                    <div class="item">
+                        <img src="{{ bano.image.url }}" alt="" class="img-responsive" style="width: 100%;height:30vw;object-fit: cover">
+                    </div>
+                {% endfor %}
+              
+            </div>
+
+            <a class="carousel-control right" href="#carouselExampleSlidesOnly" role="button" data-slide="next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </a>
+              <a class="carousel-control left" href="#carouselExampleSlidesOnly" role="button" data-slide="prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </a>
+
+          </div>
+    </div>
+
+    <!-- offer -->
+    <div class="container-fluid login_background" style="font-family: Georgia, 'Times New Roman', Times, serif;margin-top: 0px">
+    <div class="container page_section">
+        {% for off in offer %}
+        <div class="row offer_margin_top">
+        <div class="row">
+                <a href="{{ off.get_absolute_url }}">
+                <h2 class="page-header text-center offer_title">{{ off.title|title }}</h2>
+                </a>
+        </div>
+        
+        <div class="row offer_margin_top">
+          <div class="col-md-12 col-xs-12">
+            <div class="carousel slide multi-item-carousel" id="theCarouseloff{{forloop.counter}}">
+              <div class="carousel-inner">
+                {% for product in products %}
+                {% if product.offer == off %}
+                <div class="item">
+                {% with diff=product.old_price|sub:product.price|mul:100 divider=product.old_price %}
+                <div class="col-xs-4 col-sm-4 product_card">
+                    <h4 class="text-center offer_price" style="background: #c72a2a;
+                    border-radius: 0.5vw;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;padding: 0.5vw;color: white">
+                    {{ diff|intdiv:divider }}% OFF
+                    </h4>
+                    <div class="card bg-light">
+                            
+                            <a href="{{ product.get_absolute_url }}">
+                                <img src="
+                            {% if product.image %}
+                                {{ product.image.url }} 
+                                
+                            {% else %}
+                                {% static 'img/camera.png' %}
+                            
+                            {% endif %}" alt="..." class="product_icon img-responsive" 
+                            style="width: 100%;height: 18vw;object-fit: contain;border-radius: 1vw;background: white">
+                            </a>
+                            
+                            <div class="caption text-uppercase">
+                                <h3 class="text-center pro_name">
+                                    <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                                </h3>
+                                <p class="text-center pro_price">GBP. {{ product.price|intcomma }}</p>
+                                
+                            </div>
+                        
+                        </div>
+                </div>
+                {% endwith %}
+                </div>
+                {% endif %}
+                {% endfor %}
+                <!--  Example item end -->
+              </div>
+              <a class="left carousel-control" href="#theCarouseloff{{ forloop.counter }}" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+              <a class="right carousel-control" href="#theCarouseloff{{ forloop.counter }}" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+            </div>
+          </div>
+        </div>
+    </div>
+        {% endfor %}
+    </div>
+
+    <!-- sections -->
+
+    <div class="container page_section">
+            {% for sec in section %}
+            <div class="row offer_margin_top">
+            <div class="row">
+                    <a href="{{ sec.get_absolute_url }}">
+                    <h2 class="page-header text-center offer_title">{{ sec.title|title }}</h2>
+                    </a>
+            </div>
+            
+            <div class="row offer_margin_top">
+              <div class="col-md-12 col-xs-12">
+                <div class="carousel slide multi-item-carousel" id="theCarousel{{ forloop.counter}}">
+                  <div class="carousel-inner">
+                    {% for product in products %}
+                    {% if product.Category.name == sec.category.name %}
+                   
+                    <div class="item">
+                    {% with diff=product.old_price|sub:product.price|mul:100 divider=product.old_price %}
+                    <div class="col-xs-4 col-sm-4 product_card" >
+                        <h4 class="text-center offer_price" style="background: #c72a2a;
+                        border-radius: 0.5vw;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;padding: 0.5vw;color: white">
+                        {{ diff|intdiv:divider }}% OFF
+                        </h4>
+                        <div class="card bg-light">
+                                
+                                <a href="{{ product.get_absolute_url }}">
+                                    <img src="
+                                {% if product.image %}
+                                    {{ product.image.url }} 
+                                    
+                                {% else %}
+                                    {% static 'img/camera.png' %}
+                                
+                                {% endif %}" alt="..." class="product_icon img-responsive" 
+                                style="width: 100%;height: 18vw;object-fit: contain;border-radius: 1vw;background: white">
+                                </a>
+                                
+                                <div class="caption text-uppercase">
+                                    <h3 class="text-center pro_name">
+                                        <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                                    </h3>
+                                    <p class="text-center pro_price">GBP. {{ product.price|intcomma }}</p>
+                                    
+                                </div>
+                            
+                        </div>
+                    </div>
+                    {% endwith %}
+                    </div>
+                    
+                    {% endif %}
+                    {% endfor %}
+                    <!--  Example item end -->
+                  </div>
+                  <a class="left carousel-control" href="#theCarousel{{ forloop.counter}}" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                  <a class="right carousel-control" href="#theCarousel{{ forloop.counter }}" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                </div>
+              </div>
+            </div>
+        </div>
+        {% endfor %}
+        </div>
+        <!-- small screen carousel-->
+        <div class="container-fluid page_section_small">
+                {% for off in offer %}
+                <div class="row offer_margin_top">
+                <div class="row">
+                        <a href="{{ off.get_absolute_url }}">
+                        <h2 class="page-header text-center offer_title">{{ off.title|title }}</h2>
+                        </a>
+                </div>
+                
+                <div class="row offer_margin_top">
+                 
+                    <div class="carousel slide" id="product_carousel_off{{forloop.counter}}">
+                      <div class="carousel-inner">
+                        {% for product in products %}
+                        {% if product.offer == off %}
+                        <div class="item">
+                        {% with diff=product.old_price|sub:product.price|mul:100 divider=product.old_price %}
+                        
+                            <h4 class="text-center offer_price" style="background: #c72a2a;
+                            border-radius: 0.5vw;font-size: 4vw;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;padding: 0.5vw;color: white">
+                            {{ diff|intdiv:divider }}% OFF
+                            </h4>
+                            <div class="card bg-light">
+                                    
+                                    <a href="{{ product.get_absolute_url }}">
+                                        <img src="
+                                    {% if product.image %}
+                                        {{ product.image.url }} 
+                                        
+                                    {% else %}
+                                        {% static 'img/camera.png' %}
+                                    
+                                    {% endif %}" alt="..." class="product_icon img-responsive" 
+                                    style="width: 100%;height: 50vw;object-fit: contain;border-radius: 1vw;background: white">
+                                    </a>
+                                    
+                                    <div class="caption text-uppercase">
+                                        <h3 class="text-center pro_name" style="font-size:4vw">
+                                            <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                                        </h3>
+                                        <p class="text-center pro_price" style="font-size:5vw">GBP. {{ product.price|intcomma }}</p>
+                                        
+                                    </div>
+                                
+                                </div>
+                        
+                        {% endwith %}
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                        <!--  Example item end -->
+                      </div>
+                      <a class="left carousel-control" href="#product_carousel_off{{ forloop.counter }}" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                      <a class="right carousel-control" href="#product_carousel_off{{ forloop.counter }}" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                    </div>
+                  
+                </div>
+            </div>
+                {% endfor %}
+            </div>
+
+            <div class="container-fluid page_section_small">
+                    {% for sec in section %}
+                    <div class="row offer_margin_top">
+                    <div class="row">
+                            <a href="{{ off.get_absolute_url }}">
+                            <h2 class="page-header text-center offer_title">{{ sec.title|title }}</h2>
+                            </a>
+                    </div>
+                    
+                    <div class="row offer_margin_top">
+                     
+                        <div class="carousel slide" id="product_carousel_sec{{forloop.counter}}">
+                          <div class="carousel-inner">
+                            {% for product in products %}
+                            {% if product.Category.name == sec.category.name %}
+                            <div class="item">
+                            {% with diff=product.old_price|sub:product.price|mul:100 divider=product.old_price %}
+                            
+                                <h4 class="text-center offer_price" style="background: #c72a2a;
+                                border-radius: 0.5vw;font-size: 4vw;font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;padding: 0.5vw;color: white">
+                                {{ diff|intdiv:divider }}% OFF
+                                </h4>
+                                <div class="card bg-light">
+                                        
+                                        <a href="{{ product.get_absolute_url }}">
+                                            <img src="
+                                        {% if product.image %}
+                                            {{ product.image.url }} 
+                                            
+                                        {% else %}
+                                            {% static 'img/camera.png' %}
+                                        
+                                        {% endif %}" alt="..." class="product_icon img-responsive" 
+                                        style="width: 100%;height: 50vw;object-fit: contain;border-radius: 1vw;background: white">
+                                        </a>
+                                        
+                                        <div class="caption text-uppercase">
+                                            <h3 class="text-center pro_name" style="font-size:4vw">
+                                                <a href="{{ product.get_absolute_url }}">{{ product.name }}</a>
+                                            </h3>
+                                            <p class="text-center pro_price" style="font-size:5vw">GBP. {{ product.price|intcomma }}</p>
+                                            
+                                        </div>
+                                    
+                                    </div>
+                            
+                            {% endwith %}
+                            </div>
+                            {% endif %}
+                            {% endfor %}
+                            <!--  Example item end -->
+                          </div>
+                          <a class="left carousel-control" href="#product_carousel_sec{{ forloop.counter }}" data-slide="prev"><i class="glyphicon glyphicon-chevron-left"></i></a>
+                          <a class="right carousel-control" href="#product_carousel_sec{{ forloop.counter }}" data-slide="next"><i class="glyphicon glyphicon-chevron-right"></i></a>
+                        </div>
+                      
+                    </div>
+                </div>
+                    {% endfor %}
+                </div>
+        <!-- small screen carousel section end -->
+
+        </div>
+        
+
+{% endblock %}

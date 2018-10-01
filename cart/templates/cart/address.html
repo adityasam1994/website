@@ -1,0 +1,165 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}
+    Your Shopping Cart
+{% endblock %}
+ 
+
+{% block content %}
+
+<div class="container-fluid login_background">
+    <div class="container" style="font-family: 'Times New Roman', Times, serif">
+        <div class="row">
+        <h2 style="font-weight: bold">Delivery Address</h2>
+        </div>
+        <div class="row">
+            <form>
+                <div class="col-sm-6" style="border-right: 1px solid">
+                <div class="radio" onclick="disable_enable1()" id="select_address">
+                        <label><input type="radio" id="select_address" name="optradio" style="width: 20px;height: 20px">
+                            <p style="font-size: 20px;margin-left: 15px;font-weight: bold">
+                                Select from saved addresses
+                            </p>
+                        </label>
+                </div>
+                
+                </div>
+                <div class="col-sm-6">
+                        <div class="radio" onclick="disable_enable2()" id="add_address">
+                                <label><input type="radio" name="optradio" checked style="width: 20px;height: 20px">
+                                    <p style="font-size: 20px;margin-left: 15px;font-weight: bold">
+                                        Add new address
+                                    </p>
+                                </label>
+                        </div>
+                </div>
+            </form>
+        </div>
+        <div class="row" >
+            <div class="col-sm-6" style="border-right: 1px solid">
+                <div class="row" style="margin-left: 15px">
+                    <div class="radio" id="address_list">
+                            <label><input type="radio" name="optradio" id="address1" style="width: 20px;height: 20px">
+                                <p style="font-size: 20px;margin-left: 15px">
+                                    Aditya Nath Tiwari
+                                </p><br/>
+                                <p style="margin-left: 15px;margin-top: -25px">House No. 69</p><br/>
+                                <p style="margin-left: 15px;margin-top: -25px">New Kaylashpuri colony</p><br/>
+                                <p style="margin-left: 15px;margin-top: -25px">Taramandal Road</p><br/>
+                                <p style="margin-left: 15px;margin-top: -25px">Gorakhpur, U.P.</p><br/>
+                                <p style="margin-left: 15px;margin-top: -25px">273016</p><br/>
+                                <p style="margin-left: 15px;margin-top: -25px">India</p><br/>
+                            </label>
+                    </div>
+                </div>
+                <div class="row" style="margin-left: 15px">
+                    
+                        <div class="radio">
+                                <label><input type="radio" name="optradio" id="address2"  style="width: 20px;height: 20px">
+                                    <p style="font-size: 20px;margin-left: 15px">
+                                        Aditya Nath Tiwari
+                                    </p><br/>
+                                    <p style="margin-left: 15px;margin-top: -25px">House No. 69</p><br/>
+                                    <p style="margin-left: 15px;margin-top: -25px">New Kaylashpuri colony</p><br/>
+                                    <p style="margin-left: 15px;margin-top: -25px">Taramandal Road</p><br/>
+                                    <p style="margin-left: 15px;margin-top: -25px">Gorakhpur, U.P.</p><br/>
+                                    <p style="margin-left: 15px;margin-top: -25px">273016</p><br/>
+                                    <p style="margin-left: 15px;margin-top: -25px">India</p><br/>
+                                </label>
+                        </div>
+                </div> 
+                <div class="row">
+                    <button class="btn btn-success" id="deliver_address" style="margin-left: 15px;">Deliver to this address</button>
+                </div> 
+            </div>
+
+            <div class="col-sm-6">
+                    
+                    <form id="address-form" action="#" method="post" role="form">
+                            <div class="form-group">
+                                <input type="text" name="username" id="fullname" tabindex="1" class="form-control" placeholder="Full Name" value="">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="mobile" id="mobile" tabindex="1" class="form-control" placeholder="Mobile Number" value="">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="pincode" id="pincode" tabindex="2" class="form-control" placeholder="Pincode">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="town" id="town" tabindex="2" class="form-control" placeholder="Town/City">
+                            </div>
+                            <div class="form-group">
+                                    <input type="password" name="state" id="state" tabindex="2" class="form-control" placeholder="State">
+                            </div>
+                            <div class="form-group">
+                                    <input type="password" name="house" id="house" tabindex="2" class="form-control" placeholder="House/Flat no., Building, Company, Appartment">
+                            </div>
+                            <div class="form-group">
+                                    <input type="password" name="area" id="area" tabindex="2" class="form-control" placeholder="Area, Colony, Street, Sector, Village">
+                            </div>
+                            <div class="form-group">
+                                    <input type="password" name="landmark" id="landmark" tabindex="2" class="form-control" placeholder="Landmark">
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <input type="submit" name="address-submit" id="address-submit" tabindex="4" class="form-control btn btn-register loghover" value="Add Address">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+})
+    </script>
+    <script>
+    function disable_enable1() {
+        cp1=document.getElementById('select_address').checked;
+        cp2=document.getElementById('add_address').checked;
+
+        document.getElementById("fullname").disabled=!cp1;
+        document.getElementById("mobile").disabled=!cp1;
+        document.getElementById("area").disabled=!cp1;
+        document.getElementById("house").disabled=!cp1;
+        document.getElementById("town").disabled=!cp1;
+        document.getElementById("state").disabled=!cp1;
+        document.getElementById("pincode").disabled=!cp1;
+        document.getElementById("landmark").disabled=!cp1;
+        document.getElementById("address-submit").disabled=!cp1;
+
+        document.getElementById("address1").disabled=cp1;
+        document.getElementById("address2").disabled=cp1;
+        document.getElementById("deliver_address").disabled=cp1;
+    }
+    function disable_enable2() {
+        
+        cp2=document.getElementById('add_address').checked;
+
+        document.getElementById("fullname").disabled=cp2;
+        document.getElementById("mobile").disabled=cp2;
+        document.getElementById("area").disabled=cp2;
+        document.getElementById("house").disabled=cp2;
+        document.getElementById("town").disabled=cp2;
+        document.getElementById("state").disabled=cp2;
+        document.getElementById("pincode").disabled=cp2;
+        document.getElementById("landmark").disabled=cp2;
+        document.getElementById("address-submit").disabled=cp2;
+
+        document.getElementById("address1").disabled=!cp2;
+        document.getElementById("address2").disabled=!cp2;
+        document.getElementById("deliver_address").disabled=!cp2;
+    }
+    document.onload=disable_enable2();
+    </script>
+
+
+{% endblock %}

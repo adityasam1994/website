@@ -1,0 +1,411 @@
+{% extends 'shop/base.html' %}
+{% load static %}
+{% block title %}
+    Your Shopping Cart| Checkout
+{% endblock %}
+ 
+{% block content %}
+<div class="container-fluid login_background">
+    <div class="container large_cart" style="font-family: 'Times New Roman', Times, serif">
+        <div class="row">
+        <h2 style="font-weight: bold">Delivery Address</h2>
+        </div>
+        <div class="row">
+            <form>
+                <div class="col-sm-6" style="border-right: 1px solid">
+                <div class="radio" onclick="disable_enable1()" id="select_address">
+                        <label><input type="radio" id="select_address" name="optradio" style="width: 20px;height: 20px">
+                            <p style="font-size: 20px;margin-left: 15px;font-weight: bold">
+                                Select from saved addresses
+                            </p>
+                        </label>
+                </div>
+                
+                </div>
+                <div class="col-sm-6">
+                        <div class="radio" onclick="disable_enable2()" id="add_address">
+                                <label><input type="radio" name="optradio" checked style="width: 20px;height: 20px">
+                                    <p style="font-size: 20px;margin-left: 15px;font-weight: bold">
+                                        Add new address
+                                    </p>
+                                </label>
+                        </div>
+                </div>
+            </form>
+        </div>
+        <div class="row" >
+            <div class="col-sm-6" style="border-right: 1px solid">
+                
+                <form action="{% url 'orders:order_create' total %}" method="POST">
+                    {% csrf_token %}
+                {% for add in addresses|slice:":3" %}
+                <div class="row" style="margin-left: 15px">
+                    <div class="radio" id="address_list">
+                            <div class="col-sm-1" style="margin-right: -30px">
+                                <input type="radio" name="optradio" id="address{{ forloop.counter }}" style="width: 20px;height: 20px" value="{{ add.id }}" onclick="check_add()">
+                            </div>
+                            <div class="col-sm-8">
+                                {% if add.fullname %}
+                                <input type="text" name="fullname" readonly value="{{ add.fullname|capfirst }}" style="border: none;background: transparent;font-size: 20px;font-weight: bold"><br/>
+                                {% endif %}
+
+                                {% if add.mobile %}
+                                <input type="text" name="mobile" readonly value="{{ add.mobile }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+
+                                {% if add.house %}
+                                <input type="text" name="house" readonly value="{{ add.house }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+
+                                {% if add.landmark %}
+                                <input type="text" name="landmark" readonly value="{{ add.landmark }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+
+                                {% if add.area %}
+                                <input type="text" name="area" readonly value="{{ add.area|title }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+
+                                {% if add.town %}
+                                <input type="text" name="town" readonly value="{{ add.town|title }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+
+                                {% if add.state %}
+                                <input type="text" name="state" readonly value="{{ add.state }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+
+                                {% if add.pincode %}
+                                <input type="text" name="pincode" readonly value="{{ add.pincode }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+                        
+                            </div>
+                            <div class="col-sm-3">
+                                {% with addid=add.id %}
+                                <a href="{% url 'orders:ordercreate' addid %}"><p class="btn btn-danger">Delete</p></a>
+                                {% endwith %}
+                            </div>
+                            
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="row">
+                    <button class="btn btn-success" id="deliver_address" disabled name="deliver_btn" style="margin-left: 15px;">Place Order</button>
+                </div> 
+                </form>
+
+            </div>
+            
+
+            <div class="col-sm-6">
+                    
+                    <form id="address-form" action="{% url 'orders:addresssubmit' %}" method="POST" role="form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" name="fullname" id="fullname" tabindex="1" class="form-control" placeholder="Full Name" value="" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" name="mobile" id="phone"  tabindex="1" class="form-control" value=""/>
+                                <span id="valid-msg" class="hide"></span>
+								<span id="error-msg" class="hide"></span>
+                            </div>
+                            
+                        
+                            <div class="form-group">
+                                <div class="row" style="margin-bottom:10px">
+                                    <!-- <div class="col-sm-4">
+                                        <select class="input-reset ba b--black-20 pa2 mb2 db w-100 form-control" name="country" id="pc" >
+                                        <option value="US">United States</option>
+                                        <option value="AT">Austria</option>
+                                        <option value="BG">Bulgaria</option>
+                                        <option value="BR">Brazil</option>
+                                        <option value="CA">Canada</option>
+                                        <option value="CZ">Czech Republic</option>
+                                        <option value="DK">Denmark</option>
+                                        <option value="FR">French</option>
+                                        <option value="DE">Germany</option>
+                                        <option value="IN">India</option>
+                                        <option value="IT">Italy</option>
+                                        <option value="IE">Ireland</option>
+                                        <option value="MA">Morocco</option>
+                                        <option value="NL">Netherlands</option>
+                                        <option value="PL">Poland</option>
+                                        <option value="PT">Portugal</option>
+                                        <option value="RO">Romania</option>
+                                        <option value="RU">Russia</option>
+                                        <option value="SG">Singapore</option>
+                                        <option value="SK">Slovakia</option>
+                                        <option value="ES">Spain</option>
+                                        <option value="SE">Sweden</option>
+                                        <option value="CH">Switzerland</option>
+                                        <option value="GB">United Kingdom</option>
+                                        </select>
+                                        </div> -->
+                                        <div class="col-sm-12">
+                                        <input type="text" name="pincode" id="pco" tabindex="2" class="form-control" placeholder="Pincode" required>
+                                            <p class="hide" id="mes" style="color:red">Invalid Pincode</p>
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                            <div class="form-group">
+                                <input type="text" name="town" id="town" tabindex="2" class="form-control" placeholder="Town/City" required>
+                            </div>
+                            <div class="form-group">
+                                    <input type="text" name="state" id="state" tabindex="2" class="form-control" placeholder="State" required>
+                            </div>
+                            <div class="form-group">
+                                    <input type="text" name="house" id="house" tabindex="2" class="form-control" placeholder="House/Flat no., Building, Company, Appartment" required>
+                            </div>
+                            <div class="form-group">
+                                    <input type="text" name="area" id="area" tabindex="2" class="form-control" placeholder="Area, Colony, Street, Sector, Village" required>
+                            </div>
+                            <div class="form-group">
+                                    <input type="text" name="landmark" id="landmark" tabindex="2" class="form-control" placeholder="Landmark" required>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-sm-6 col-sm-offset-3">
+                                        <input type="submit" name="address-submit" id="address-submit" tabindex="4" class="form-control btn btn-register loghover" value="Add Address">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- for small screen -->
+
+    <div class="container small_cart" style="font-family: 'Times New Roman', Times, serif;margin-bottom: 20px">
+        <div class="row">
+        <h2 style="font-weight: bold">Delivery Address</h2>
+        </div>
+        <div class="row page-header">
+            
+                <div class="col-xs-6">
+                    <a href="#add_ord" data-toggle="tab">
+                <div class="" id="select_address">
+                        <label>
+                            <p style="font-size: 18px;font-weight: bold">
+                                My Addresses
+                            </p>
+                        </label>
+                </div>
+                </a>
+                
+                </div>
+                <div class="col-xs-6">
+                    <a href="#add_sub" data-toggle="tab">
+                        <div id="add_address">
+                                <label>
+                                    <p style="font-size: 18px;font-weight: bold">
+                                        Add Address
+                                    </p>
+                                </label>
+                        </div>
+                        </a>
+                </div>
+            
+        </div>
+        <div class="row tab-content" >
+            <div class="tab-pane active" id="add_ord">
+                <div class="col-xs-12">
+                <form action="{% url 'orders:order_create' total %}" method="POST">
+                {% csrf_token %}
+                {% for add in addresses|slice:":3" %}
+                <div class="row" style="margin-left: 15px">
+                    <div class="radio" id="address_list">
+                            <div class="col-sm-1" style="margin-right: -30px">
+                                <input type="radio" name="optradio" id="address{{ forloop.counter }}" style="width: 20px;height: 20px" value="{{ add.id }}" onclick="check_add_small()">
+                            </div>
+                            <div class="col-sm-8">
+                                {% if add.fullname %}
+                                <input type="text" name="fullname" readonly value="{{ add.fullname|capfirst }}" style="border: none;background: transparent;font-size: 20px;font-weight: bold"><br/>
+                                {% endif %}
+
+                                {% if add.mobile %}
+                                <input type="text" name="mobile" readonly value="{{ add.mobile }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+
+                                {% if add.house %}
+                                <input type="text" name="house" readonly value="{{ add.house }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+
+                                {% if add.landmark %}
+                                <input type="text" name="landmark" readonly value="{{ add.landmark }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+
+                                {% if add.area %}
+                                <input type="text" name="area" readonly value="{{ add.area|title }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+
+                                {% if add.town %}
+                                <input type="text" name="town" readonly value="{{ add.town|title }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+
+                                {% if add.state %}
+                                <input type="text" name="state" readonly value="{{ add.state }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+
+                                {% if add.pincode %}
+                                <input type="text" name="pincode" readonly value="{{ add.pincode }}" style="border: none;background: transparent"><br/>
+                                {% endif %}
+                        
+                            </div>
+                            <div class="col-sm-3">
+                                {% with addid=add.id %}
+                                <a href="{% url 'orders:ordercreate' addid %}"><p class="btn btn-danger">Delete</p></a>
+                                {% endwith %}
+                            </div>
+                            
+                    </div>
+                </div>
+                {% endfor %}
+
+                <div class="row">
+                    <button class="btn btn-success" id="deliver_address_small" disabled name="deliver_btn" style="margin-left: 0px;width: 100%">Place Order</button>
+                </div> 
+                </form>
+            
+                </div>
+                </div>
+            
+
+            
+                <div class="tab-pane" id="add_sub">
+                    
+                    <form id="address-form" action="{% url 'orders:addresssubmit' %}" method="POST" role="form">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <input type="text" name="fullname" id="fullname" tabindex="1" class="form-control" placeholder="Full Name" value="" required>
+                            </div>
+                            <div class="form-group">
+                                <input type="tel" name="mobile" id="phone_small"  tabindex="1" class="form-control"/>
+                                <span id="valid-msg" class="hide"></span>
+								<span id="error-msg" class="hide"></span>
+                            </div>
+                            
+                        
+                            <div class="form-group">
+                                <div class="row" style="margin-bottom:10px">
+                                        <div class="col-sm-12">
+                                        <input type="text" name="pincode" id="pco_small" tabindex="2" class="form-control" placeholder="Pincode" required>
+                                            <p class="hide" id="mes_small" style="color:red">Invalid Pincode</p>
+                                    </div>
+                                </div>
+                            </div>
+                                            
+                            <div class="form-group">
+                                <input type="text" name="town" id="town" tabindex="2" class="form-control" placeholder="Town/City" required>
+                            </div>
+                            <div class="form-group">
+                                    <input type="text" name="state" id="state" tabindex="2" class="form-control" placeholder="State" required>
+                            </div>
+                            <div class="form-group">
+                                    <input type="text" name="house" id="house" tabindex="2" class="form-control" placeholder="House/Flat no., Building, Company, Appartment" required>
+                            </div>
+                            <div class="form-group">
+                                    <input type="text" name="area" id="area" tabindex="2" class="form-control" placeholder="Area, Colony, Street, Sector, Village" required>
+                            </div>
+                            <div class="form-group">
+                                    <input type="text" name="landmark" id="landmark" tabindex="2" class="form-control" placeholder="Landmark" required>
+                            </div>
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-xs-12">
+                                        <input type="submit" name="address-submit" id="address-submit" tabindex="4" class="form-control btn btn-register loghover" value="Add Address">
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                        
+                        </div>
+            </div>
+        </div>
+    </div>
+
+
+
+
+</div>
+
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    
+    <script type="text/javascript">
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+})
+    </script>
+    <script>
+    function disable_enable1() {
+        cp1=document.getElementById('select_address').checked;
+        // cp2=document.getElementById('add_address').checked;
+        document.getElementById("fullname").disabled=!cp1;
+        document.getElementById("mobile").disabled=!cp1;
+        document.getElementById("area").disabled=!cp1;
+        document.getElementById("house").disabled=!cp1;
+        document.getElementById("town").disabled=!cp1;
+        document.getElementById("state").disabled=!cp1;
+        document.getElementById("pincode").disabled=!cp1;
+        document.getElementById("landmark").disabled=!cp1;
+        document.getElementById("address-submit").disabled=!cp1;
+        
+        
+        document.getElementById("address1").disabled=cp1;
+        document.getElementById("address2").disabled=cp1;
+        document.getElementById("address3").disabled=cp1;
+    }
+    function disable_enable2() {
+        
+        cp2=document.getElementById('add_address').checked;
+
+        document.getElementById("fullname").disabled=cp2;
+        document.getElementById("mobile").disabled=cp2;
+        document.getElementById("area").disabled=cp2;
+        document.getElementById("house").disabled=cp2;
+        document.getElementById("town").disabled=cp2;
+        document.getElementById("state").disabled=cp2;
+        document.getElementById("pincode").disabled=cp2;
+        document.getElementById("landmark").disabled=cp2;
+        document.getElementById("address-submit").disabled=cp2;
+
+        document.getElementById("deliver_address").disabled=!cp2;
+        document.getElementById("address1").disabled=!cp2;
+        document.getElementById("address2").disabled=!cp2;
+        document.getElementById("address3").disabled=!cp2;
+        
+    }
+    function check_add(){
+        document.getElementById("deliver_address").disabled=false;
+    }
+    function check_add_small(){
+        document.getElementById("deliver_address_small").disabled=false;
+    }
+    
+    document.onload=disable_enable2();
+    </script>
+
+
+
+<script>
+document.getElementById("address-submit").addEventListener("click", function(event){
+const element = document.querySelector("#valid-msg");
+if (element.classList.contains("hide")){
+event.preventDefault()
+alert("Plaese fill a valid Mobile Number");
+}} );
+</script>
+
+<script src="{% static 'js/pincode.js' %}"></script>
+
+
+<script>
+var input = document.getElementById('pincode');
+input.oninvalid = function(event) {
+event.target.setCustomValidity('Plesar enter a valid pincode e.g. AZ123CD');
+}
+</script>
+
+    
+{% endblock %}

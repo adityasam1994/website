@@ -1,0 +1,134 @@
+{% extends 'shop/base.html' %}
+{% load mathfilters %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.name }} {% else %} Products {% endif %}
+{% endblock %}
+ 
+{% block content %}
+
+<div class="container-fluid login_background">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-sm-6">
+                        <h1 style="font-family: 'Times New Roman', Times, serif
+                        ;color: black;">Signin Now!</h1>
+                </div>
+            
+            </div>
+        </div>
+    
+    
+        <div class="container">
+
+                <div class="row" style="margin-left: 0px;font-family:'Times New Roman', Times, serif;
+                color: red;font-weight: bold">
+                        {% if messages %}
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                        {% endif %}
+                </div>
+
+            <div class="row"  style="margin-right: 0px;margin-top: 30px">
+                <div class="col-sm-7 sign_up_in border_right">
+                        <a href="/login/"><button type="button" class="btn btn-outline-primary"
+                         style="padding-left:30px;padding-right: 30px;color: black">Signin</button></a>
+    
+                        <a href="/signup/"><button type="button" class="btn btn-outline-primary active"
+                         style="padding-left:30px;padding-right: 30px;margin-left: 30px
+                         ;color: white">Signup</button></a>
+
+                
+    
+                <div class="row" style="margin-top: 30px;margin-bottom: 20px">
+                    <div class="col-sm-11">
+                    
+    
+                    <form method="POST" action="{% url 'shop:signup' %}" role="form" style="display: block" id="register-form">
+                        {% csrf_token %}
+                        <div class="form-group">
+                        <input type="text" placeholder="Username" name="username" maxlength="150" class="form-control" autofocus="" required id="id_username"> 
+                        <div>
+                            {{ form.username.errors }}
+                        </div>
+                        </div>
+                        <div class="form-group">
+                        <input type="email" placeholder="Email" name="email" required maxlength="254" class="form-control" id="id_email">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="First Name" name="first_name" required maxlength="254" class="form-control" id="id_first_name">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" placeholder="Last Name" name="last_name" required maxlength="254" class="form-control" id="id_last_name">
+                        </div>
+                        <div class="form-group">
+                        <input type="password" placeholder="Password" name="password1" required class="form-control" id="id_password1"> 
+                        </div>
+                        <div class="form-group">
+                        <input type="password" placeholder="Confirm-Password" name="password2" required class="form-control" id="id_password2"> 
+                        <div>
+                            {{ form.password2.errors }}
+                        </div>
+                        </div>
+                        <div class="form-group">
+                        <input type="submit" class="form-control btn btn-register loghover" value="Register Now">
+                        </div>
+                    </form>
+                    </div>
+                    <div class="col-sm-1"></div>
+                </div>
+    
+                </div>
+    
+    
+                <div class="col-sm-5 col-xs-12">
+                   <div class="row"><h2 class="text-right signin_with">Signin with!</h2></div>
+                   <div class="row social_icon_row">
+                       <div class="col-sm-1 col-xs-0"></div>
+                       <div class="col-sm-2 col-xs-2" style="margin-right: 20px">
+                            <a href="{% url 'social:begin' 'facebook' %}">
+                        <div class="container fbsquare log_icon_hover social_login_box">    
+                            <i class="fa fa-facebook-f fbrotate_to_normal social_login_ficon"></i>
+                            
+                        </div>
+                        </a>
+                        </div>
+                        <div class="col-sm-2 col-xs-2" style="margin-right: 20px">
+                                <a href="{% url 'social:begin' 'google-oauth2' %}">
+                                <div class="container gsquare log_icon_hover social_login_box">
+                                       
+                                        <i class="fa fa-google grotate_to_normal social_login_gicon"></i>
+                                </div>
+                                </a>
+                        </div>
+                        <div class="col-sm-2 col-xs-2" style="margin-right: 20px">
+                                <a href="{% url 'social:begin' 'twitter' %}">
+                                <div class="container tsquare log_icon_hover social_login_box">
+                                        
+                                        <i class="fa fa-twitter trotate_to_normal social_login_ticon"></i>
+                                    
+                                </div>
+                                </a>
+                        </div>
+
+                        <div class="col-sm-2 col-xs-2">
+                                <div class="container psquare log_icon_hover social_login_box">
+                                        <a href="{% url 'social:begin' 'github' %}">
+                                        <i class="fa fa-github protate_to_normal social_login_picon"></i>
+                                        </a>
+                                </div>
+                        </div>
+                   </div>
+                </div>
+            </div>
+        </div>
+    
+        
+    
+        </div>
+
+        
+{% endblock %}
+        

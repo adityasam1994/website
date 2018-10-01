@@ -1,0 +1,296 @@
+<!DOCTYPE HTML>
+{% load staticfiles %}
+<html lang="en-US">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-compatible" Content="IE-edge">
+    <meta name="viewport" content="width=device-width">
+    <title>Cyfoes Shopping</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.css"/>
+    <link rel="stylesheet" href="{% static 'css/mystyle.css' %}">
+    <link rel="stylesheet" href="{% static 'css/footer.css' %}">
+    <link rel="stylesheet" href="{% static 'css/productcarousel.css' %}">
+    <link rel="stylesheet" href="{% static 'css/intlTelInput.css' %}">
+    <link rel="stylesheet" href="http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.6.3/css/font-awesome.min.css" />
+    
+  </head>
+  <body>
+
+    {% include 'shop/navbar.html' %}
+
+    {% block content %}
+
+    {% endblock %}
+
+    {% include 'shop/footer.html' %}
+
+
+        <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="{% static 'js/carousel-swipe.js' %}"></script> 
+        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/jquery.inputmask.bundle.js"></script> 
+        <script src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/3/masking-input.js" data-autoinit="true"></script>
+        <script src="{% static 'js/bootstrap-swipe-carousel.js' %}"></script>
+        <script type="text/javascript" src="{% static 'js/jquerymobile.js' %}"></script>
+        <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+})
+        </script>
+        <script type="text/javascript">
+            $(function() {
+    
+        $('#login-form-link').click(function(e) {
+            $("#login-form").delay(100).fadeIn(100);
+             $("#register-form").fadeOut(100);
+            $('#register-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+        });
+        $('#register-form-link').click(function(e) {
+            $("#register-form").delay(100).fadeIn(100);
+             $("#login-form").fadeOut(100);
+            $('#login-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+        });
+    
+    });
+            </script>
+
+<script>
+        // Get the modal
+        var modal = document.getElementById('id01');
+        
+        // When the user clicks anywhere outside of the modal, close it
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = "none";
+            }
+        }
+        </script>
+
+<script>
+    // Instantiate the Bootstrap carousel
+$('.multi-item-carousel').carousel({
+  interval: false
+});
+
+// for every slide in carousel, copy the next slide's item in the slide.
+// Do the same for the next, next item.
+$('.multi-item-carousel .item').each(function(){
+  var next = $(this).next();
+  if (!next.length) {
+    next = $(this).siblings(':first');
+  }
+  next.children(':first-child').clone().appendTo($(this));
+  
+  if (next.next().length>0) {
+    next.next().children(':first-child').clone().appendTo($(this));
+  } else {
+  	$(this).siblings(':first').children(':first-child').clone().appendTo($(this));
+  }
+});
+</script>
+        <script>
+            $(document).ready(function () {
+            $("#theCarousel1").find('.item').first().addClass('active');
+            $("#theCarousel2").find('.item').first().addClass('active');
+            $("#theCarousel3").find('.item').first().addClass('active');
+            $("#theCarousel4").find('.item').first().addClass('active');
+            $("#theCarousel5").find('.item').first().addClass('active');
+            $("#theCarousel6").find('.item').first().addClass('active');
+            $("#theCarousel7").find('.item').first().addClass('active');
+            $("#theCarousel8").find('.item').first().addClass('active');
+            $("#theCarousel9").find('.item').first().addClass('active');
+            $("#theCarousel10").find('.item').first().addClass('active');
+            $("#theCarousel11").find('.item').first().addClass('active');
+            $("#theCarousel12").find('.item').first().addClass('active');
+            $("#theCarousel13").find('.item').first().addClass('active');
+            $("#theCarousel14").find('.item').first().addClass('active');
+            $("#theCarousel15").find('.item').first().addClass('active');
+            $("#theCarousel16").find('.item').first().addClass('active');
+            $("#theCarousel17").find('.item').first().addClass('active');
+            $("#theCarousel18").find('.item').first().addClass('active');
+            $("#theCarousel19").find('.item').first().addClass('active');
+            $("#theCarousel20").find('.item').first().addClass('active');
+
+            $("#product_carousel_sec1").find('.item').first().addClass('active');
+            $("#product_carousel_sec2").find('.item').first().addClass('active');
+            $("#product_carousel_sec3").find('.item').first().addClass('active');
+            $("#product_carousel_sec4").find('.item').first().addClass('active');
+            $("#product_carousel_sec5").find('.item').first().addClass('active');
+            $("#product_carousel_sec6").find('.item').first().addClass('active');
+            $("#product_carousel_sec7").find('.item').first().addClass('active');
+            $("#product_carousel_sec8").find('.item').first().addClass('active');
+            $("#product_carousel_sec9").find('.item').first().addClass('active');
+            $("#product_carousel_sec10").find('.item').first().addClass('active');
+            $("#product_carousel_sec11").find('.item').first().addClass('active');
+            $("#product_carousel_sec12").find('.item').first().addClass('active');
+            $("#product_carousel_sec13").find('.item').first().addClass('active');
+            $("#product_carousel_sec14").find('.item').first().addClass('active');
+            $("#product_carousel_sec15").find('.item').first().addClass('active');
+            $("#product_carousel_sec16").find('.item').first().addClass('active');
+            $("#product_carousel_sec17").find('.item').first().addClass('active');
+            $("#product_carousel_sec18").find('.item').first().addClass('active');
+            $("#product_carousel_sec19").find('.item').first().addClass('active');
+            $("#product_carousel_sec20").find('.item').first().addClass('active');
+
+            $("#product_carousel_off1").find('.item').first().addClass('active');
+            $("#product_carousel_0ff2").find('.item').first().addClass('active'); 
+            $("#product_carousel_off3").find('.item').first().addClass('active');
+            $("#product_carousel_0ff4").find('.item').first().addClass('active'); 
+            $("#product_carousel_off5").find('.item').first().addClass('active');
+            $("#product_carousel_0ff6").find('.item').first().addClass('active'); 
+            $("#product_carousel_off7").find('.item').first().addClass('active');
+            $("#product_carousel_0ff8").find('.item').first().addClass('active'); 
+            $("#product_carousel_off9").find('.item').first().addClass('active');
+            $("#product_carousel_0ff10").find('.item').first().addClass('active');            
+            $("#product_carousel_off11").find('.item').first().addClass('active');
+            $("#product_carousel_0ff12").find('.item').first().addClass('active'); 
+            $("#product_carousel_off13").find('.item').first().addClass('active');
+            $("#product_carousel_0ff14").find('.item').first().addClass('active'); 
+            $("#product_carousel_off15").find('.item').first().addClass('active');
+            $("#product_carousel_0ff16").find('.item').first().addClass('active'); 
+            $("#product_carousel_off17").find('.item').first().addClass('active');
+            $("#product_carousel_0ff18").find('.item').first().addClass('active'); 
+            $("#product_carousel_off19").find('.item').first().addClass('active');
+            $("#product_carousel_0ff20").find('.item').first().addClass('active'); 
+
+
+            $("#theCarouseloff1").find('.item').first().addClass('active');
+            $("#theCarouseloff2").find('.item').first().addClass('active');
+            $("#theCarouseloff3").find('.item').first().addClass('active');
+            $("#theCarouseloff4").find('.item').first().addClass('active');
+            $("#theCarouseloff5").find('.item').first().addClass('active');
+            $("#theCarouseloff6").find('.item').first().addClass('active');
+            $("#theCarouseloff7").find('.item').first().addClass('active');
+            $("#theCarouseloff8").find('.item').first().addClass('active');
+            $("#theCarouseloff9").find('.item').first().addClass('active');
+            $("#theCarouseloff10").find('.item').first().addClass('active');
+            $("#theCarouseloff11").find('.item').first().addClass('active');
+            $("#theCarouseloff12").find('.item').first().addClass('active');
+            $("#theCarouseloff13").find('.item').first().addClass('active');
+            $("#theCarouseloff14").find('.item').first().addClass('active');
+            $("#theCarouseloff15").find('.item').first().addClass('active');
+            $("#theCarouseloff16").find('.item').first().addClass('active');
+            $("#theCarouseloff17").find('.item').first().addClass('active');
+            $("#theCarouseloff18").find('.item').first().addClass('active');
+            $("#theCarouseloff19").find('.item').first().addClass('active');
+            $("#theCarouseloff20").find('.item').first().addClass('active');
+            });
+        </script>
+
+        <script>
+        $('.pro_carousel').carousel().swipeCarousel({
+            sensitivity: 'high'
+	    });
+        </script>
+
+<script src="{% static 'js/intlTelInput.js' %}"></script>
+<script src="{% static 'js/utils.js' %}"></script>
+
+<script>
+  var input = document.querySelector("#phone"),
+  errorMsg = document.querySelector("#error-msg"),
+  validMsg = document.querySelector("#valid-msg");
+  
+  var errorMap = [ "Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+  
+  var iti = window.intlTelInput(input, {
+  utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js",
+  preferredCountries: ["gb"],
+  initialCountry: "auto",
+  geoIpLookup: function(success, failure) {
+    $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+      var countryCode = (resp && resp.country) ? resp.country : "";
+      success(countryCode);
+    });
+  },
+  
+});
+
+var reset = function() {
+  input.classList.remove("error");
+  errorMsg.innerHTML = "";
+  errorMsg.classList.add("hide");
+  validMsg.classList.add("hide");
+};
+
+input.addEventListener('blur', function() {
+  reset();
+  if (input.value.trim()) {
+    if (iti.isValidNumber()) {
+      validMsg.classList.remove("hide");
+    } else {
+      input.classList.add("error");
+      var errorCode = iti.getValidationError();
+      errorMsg.innerHTML = errorMap[errorCode];
+      errorMsg.classList.remove("hide");
+    }
+  }
+});
+
+input.addEventListener('change', reset);
+input.addEventListener('keyup', reset);
+</script>
+
+<script>
+    var input = document.querySelector("#phone_small"),
+    errorMsg = document.querySelector("#error-msg"),
+    validMsg = document.querySelector("#valid-msg");
+    
+    var errorMap = [ "Invalid number", "Invalid country code", "Too short", "Too long", "Invalid number"];
+    
+    var iti = window.intlTelInput(input, {
+    utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/8.4.6/js/utils.js",
+    preferredCountries: ["gb"],
+    initialCountry: "auto",
+    geoIpLookup: function(success, failure) {
+      $.get("https://ipinfo.io", function() {}, "jsonp").always(function(resp) {
+        var countryCode = (resp && resp.country) ? resp.country : "";
+        success(countryCode);
+      });
+    },
+    
+  });
+  
+  var reset = function() {
+    input.classList.remove("error");
+    errorMsg.innerHTML = "";
+    errorMsg.classList.add("hide");
+    validMsg.classList.add("hide");
+  };
+  
+  input.addEventListener('blur', function() {
+    reset();
+    if (input.value.trim()) {
+      if (iti.isValidNumber()) {
+        validMsg.classList.remove("hide");
+      } else {
+        input.classList.add("error");
+        var errorCode = iti.getValidationError();
+        errorMsg.innerHTML = errorMap[errorCode];
+        errorMsg.classList.remove("hide");
+      }
+    }
+  });
+  
+  input.addEventListener('change', reset);
+  input.addEventListener('keyup', reset);
+  </script>
+
+<script type="text/javascript">
+jQuery(document).ready(function(){
+  jQuery("#carouselExampleSlidesOnly").touchwipe({
+    wipeLeft: function(){jQuery("#carouselExampleSlidesOnly").carousel('next');},
+    wipeRight: function(){jQuery("#carouselExampleSlidesOnly").carousel('prev');},
+    min_move_x: 100,
+    preventDefaultEvents: false  
+  });
+});
+</script> 
+
+
+
+    </body>

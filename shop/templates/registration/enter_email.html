@@ -1,0 +1,28 @@
+{% extends 'shop/base.html' %}
+{% load mathfilters %}
+{% load static %}
+{% block title %}
+    {% if category %}{{ category.name }} {% else %} Products {% endif %}
+{% endblock %}
+ 
+{% block content %}
+
+
+<div class="container">
+    <div class="row text-center" style="margin-top: 30px">
+        Kindly provide your registered email id to reset the password
+    </div>
+    <div class="row">
+        <div class="col-sm-4"></div>
+        <div class="col-sm-4">
+            <form method="POST" align="center">
+                {% csrf_token %}
+                <input type="email" placeholder="Email" required="" id="id_email" name="email" class="form-control" style="margin-top: 30px;text-align: center">
+                <button type="submit" class="btn btn-success" style="margin-top: 20px;margin-bottom: 100px">Enter</button>
+            </form>
+        </div>
+        <div class="col-sm-4"></div>
+    </div>
+</div>
+
+{% endblock %}
